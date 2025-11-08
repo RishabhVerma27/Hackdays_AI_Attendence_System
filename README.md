@@ -31,6 +31,4 @@ This project eliminates manual roll calls, minimizes proxy attendance, and provi
 - **gspread**
 - **Google Service Account Authentication**
 
----
 
-## 🧑‍💻 Project Structure
