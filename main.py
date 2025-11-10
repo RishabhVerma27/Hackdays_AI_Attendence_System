@@ -6,7 +6,7 @@ from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 
-# ---------------------- GOOGLE SHEETS SETUP ----------------------
+#GOOGLE SHEETS SETUP 
 SERVICE_ACCOUNT_FILE = r"C:\Users\Rishabh\Downloads\aiattendencesystem-d13ae1e5a8e4.json"  # Replace with your JSON key path
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets",
           "https://www.googleapis.com/auth/drive"]
@@ -14,7 +14,7 @@ creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPE
 client = gspread.authorize(creds)
 sheet = client.open("Attendence Sheet").sheet1  # Replace with your Google Sheet name
 
-# ---------------------- CREATE/LOAD DATASET ----------------------
+#CREATE/LOAD DATASET 
 dataset_dir = "dataset"
 if not os.path.exists(dataset_dir):
     os.makedirs(dataset_dir)
@@ -50,7 +50,7 @@ cap.release()
 cv2.destroyAllWindows()
 print("Dataset created successfully!")
 
-# ---------------------- LOAD DATASET AND COMPUTE ORB FEATURES ----------------------
+#LOAD DATASET AND COMPUTE ORB FEATURES
 student_images = {}
 orb = cv2.ORB_create()
 
@@ -68,14 +68,14 @@ for folder_name in os.listdir(dataset_dir):
         images.append((img, des))
     student_images[f"{roll_no_folder}_{student_name_folder}"] = images
 
-# ---------------------- INITIALIZE ATTENDANCE ----------------------
+#INITIALIZE ATTENDANCE
 attendance = pd.DataFrame(columns=["RollNo", "StudentName", "Time"])
 
 # Clear Google Sheet before starting
 sheet.clear()
 sheet.append_row(["RollNo", "StudentName", "Time"])
 
-# ---------------------- START REAL-TIME ATTENDANCE ----------------------
+#START REAL-TIME ATTENDANCE
 cap = cv2.VideoCapture(0)
 bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 
@@ -127,6 +127,7 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 print("Attendance session ended.")
+
 
 
 
